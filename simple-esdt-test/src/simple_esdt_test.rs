@@ -11,18 +11,25 @@ pub trait SimpleEsdtTest {
     #[upgrade]
     fn upgrade(&self) {}
 
-    #[endpoint(ESDTLocalMint)]
+    #[endpoint]
     fn esdt_local_mint(&self, token_id: TokenIdentifier, nonce: u64, amount: BigUint) {
         self.send().esdt_local_mint(&token_id, nonce, &amount);
+        self.tx()
+            .to(ToCaller)
+            .single_esdt(&token_id, 0, &amount)
+            .transfer();
     }
 
-    #[endpoint(ESDTLocalBurn)]
-    fn esdt_local_burn(&self, token_id: TokenIdentifier, nonce: u64, amount: BigUint) {
-        self.send().esdt_local_burn(&token_id, nonce, &amount);
+    #[payable("*")]
+    #[endpoint]
+    fn esdt_local_burn(&self) {
+        let esdt = self.call_value().single_esdt();
+        self.send()
+            .esdt_local_burn(&esdt.token_identifier, esdt.token_nonce, &esdt.amount);
     }
 
-    #[endpoint(ESDTNFTCreate)]
-    fn esdt_nft_create(
+    #[endpoint]
+    fn nft_create(
         &self,
         token_id: &TokenIdentifier,
         amount: &BigUint,
@@ -34,15 +41,5 @@ pub trait SimpleEsdtTest {
     ) {
         self.send()
             .esdt_nft_create(&token_id, &amount, name, royalties, hash, attributes, uris);
-    }
-
-    #[endpoint(ESDTNFTAddQuantity)]
-    fn esdt_nft_add_quantity(&self, token_id: TokenIdentifier, nonce: u64, amount: BigUint) {
-        self.send().esdt_local_mint(&token_id, nonce, &amount);
-    }
-
-    #[endpoint(ESDTNFTBurn)]
-    fn esdt_nft_burn(&self, token_id: TokenIdentifier, nonce: u64, amount: BigUint) {
-        self.send().esdt_local_burn(&token_id, nonce, &amount);
     }
 }
