@@ -3,6 +3,8 @@
 #[allow(unused_imports)]
 use multiversx_sc::imports::*;
 
+pub const ESDT_NFT_CREATE_FUNC_NAME: &str = "ESDTNFTCreate";
+
 #[multiversx_sc::contract]
 pub trait SimpleEsdtTest {
     #[init]
@@ -31,15 +33,28 @@ pub trait SimpleEsdtTest {
     #[endpoint]
     fn nft_create(
         &self,
-        token_id: &TokenIdentifier,
-        amount: &BigUint,
-        name: &ManagedBuffer,
-        royalties: &BigUint,
-        hash: &ManagedBuffer,
-        attributes: &ManagedBuffer,
-        uris: &ManagedVec<ManagedBuffer>,
+        token_id: TokenIdentifier,
+        nonce: u64,
+        amount: BigUint,
+        creator: ManagedBuffer,
     ) {
-        self.send()
-            .esdt_nft_create(&token_id, &amount, name, royalties, hash, attributes, uris);
+        let mut arg_buffer = ManagedArgBuffer::new();
+
+        arg_buffer.push_arg(&token_id);
+        arg_buffer.push_arg(amount);
+        arg_buffer.push_arg(&ManagedBuffer::new()); // name
+        arg_buffer.push_arg(&BigUint::zero()); // royalties
+        arg_buffer.push_arg(&ManagedBuffer::new()); // hash
+        arg_buffer.push_arg(&ManagedBuffer::new()); //attributes
+        arg_buffer.push_arg(&ManagedVec::<Self::Api, ManagedBuffer>::new()); // uris
+
+        arg_buffer.push_arg(nonce);
+        arg_buffer.push_arg(creator);
+
+        let _ = self.send_raw().call_local_esdt_built_in_function(
+            self.blockchain().get_gas_left(),
+            &ManagedBuffer::from(ESDT_NFT_CREATE_FUNC_NAME),
+            &arg_buffer,
+        );
     }
 }

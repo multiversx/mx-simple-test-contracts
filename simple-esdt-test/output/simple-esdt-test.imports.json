@@ -1,6 +1,7 @@
 [
   "bigIntAdd",
   "bigIntGetUnsignedArgument",
+  "bigIntNew",
   "bigIntSetInt64",
   "checkNoPayment",
   "cleanReturnData",
@@ -8,7 +9,6 @@
   "getNumArguments",
   "mBufferAppend",
   "mBufferAppendBytes",
-  "mBufferCopyByteSlice",
   "mBufferFromBigIntUnsigned",
   "mBufferGetArgument",
   "mBufferGetByteSlice",
@@ -20,7 +20,6 @@
   "managedGetMultiESDTCallValue",
   "managedMultiTransferESDTNFTExecute",
   "managedSCAddress",
-  "managedSignalError",
   "signalError",
   "smallIntGetUnsignedArgument"
 ]
