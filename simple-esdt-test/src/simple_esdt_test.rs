@@ -64,8 +64,8 @@ pub trait SimpleEsdtTest {
         arg_buffer.push_arg(&ManagedBuffer::new()); //attributes
         arg_buffer.push_arg(&ManagedVec::<Self::Api, ManagedBuffer>::new()); // uris
 
-        arg_buffer.push_arg(nonce);
         arg_buffer.push_arg(token_type);
+        arg_buffer.push_arg(nonce);
         arg_buffer.push_arg(creator);
 
         let _ = self.send_raw().call_local_esdt_built_in_function(
