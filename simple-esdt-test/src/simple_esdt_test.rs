@@ -18,7 +18,7 @@ pub trait SimpleEsdtTest {
         self.send().esdt_local_mint(&token_id, nonce, &amount);
         self.tx()
             .to(ToCaller)
-            .single_esdt(&token_id, 0, &amount)
+            .single_esdt(&token_id, nonce, &amount)
             .transfer();
     }
 
