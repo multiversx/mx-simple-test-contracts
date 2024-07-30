@@ -1,0 +1,12 @@
+[package]
+name = "simple-esdt-test-meta"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[dependencies.simple-esdt-test]
+path = ".."
+
+[dependencies.multiversx-sc-meta]
+version = "0.50.1"
+default-features = false
