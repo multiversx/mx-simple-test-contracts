@@ -1,5 +1,26 @@
 [
+  "bigIntAdd",
+  "bigIntGetUnsignedArgument",
+  "bigIntSetInt64",
   "checkNoPayment",
+  "cleanReturnData",
+  "getGasLeft",
   "getNumArguments",
-  "signalError"
+  "mBufferAppend",
+  "mBufferAppendBytes",
+  "mBufferCopyByteSlice",
+  "mBufferFromBigIntUnsigned",
+  "mBufferGetArgument",
+  "mBufferGetByteSlice",
+  "mBufferGetLength",
+  "mBufferNew",
+  "mBufferSetBytes",
+  "managedCaller",
+  "managedExecuteOnDestContext",
+  "managedGetMultiESDTCallValue",
+  "managedMultiTransferESDTNFTExecute",
+  "managedSCAddress",
+  "managedSignalError",
+  "signalError",
+  "smallIntGetUnsignedArgument"
 ]

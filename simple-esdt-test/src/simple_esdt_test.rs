@@ -12,7 +12,7 @@ pub trait SimpleEsdtTest {
     fn upgrade(&self) {}
 
     #[endpoint]
-    fn esdt_local_mint(&self, token_id: TokenIdentifier, nonce: u64, amount: BigUint) {
+    fn local_mint(&self, token_id: TokenIdentifier, nonce: u64, amount: BigUint) {
         self.send().esdt_local_mint(&token_id, nonce, &amount);
         self.tx()
             .to(ToCaller)
@@ -22,7 +22,7 @@ pub trait SimpleEsdtTest {
 
     #[payable("*")]
     #[endpoint]
-    fn esdt_local_burn(&self) {
+    fn burn(&self) {
         let esdt = self.call_value().single_esdt();
         self.send()
             .esdt_local_burn(&esdt.token_identifier, esdt.token_nonce, &esdt.amount);
