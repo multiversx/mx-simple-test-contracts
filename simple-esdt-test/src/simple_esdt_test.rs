@@ -1,9 +1,24 @@
 #![no_std]
 
-#[allow(unused_imports)]
+use multiversx_sc::derive_imports::*;
 use multiversx_sc::imports::*;
 
 pub const ESDT_NFT_CREATE_FUNC_NAME: &str = "ESDTNFTCreate";
+
+#[type_abi]
+#[derive(
+    TopDecode, TopEncode, NestedDecode, NestedEncode, Clone, PartialEq, Eq, Debug, ManagedVecItem,
+)]
+pub enum EsdtTokenType {
+    Fungible,
+    NonFungible,
+    NonFungibleV2,
+    SemiFungible,
+    MetaFungible,
+    DynamicNFT,
+    DynamicSFT,
+    DynamicMeta,
+}
 
 #[multiversx_sc::contract]
 pub trait SimpleEsdtTest {
@@ -36,6 +51,7 @@ pub trait SimpleEsdtTest {
         token_id: TokenIdentifier,
         nonce: u64,
         amount: BigUint,
+        token_type: EsdtTokenType,
         creator: ManagedBuffer,
     ) {
         let mut arg_buffer = ManagedArgBuffer::new();
@@ -49,6 +65,7 @@ pub trait SimpleEsdtTest {
         arg_buffer.push_arg(&ManagedVec::<Self::Api, ManagedBuffer>::new()); // uris
 
         arg_buffer.push_arg(nonce);
+        arg_buffer.push_arg(token_type);
         arg_buffer.push_arg(creator);
 
         let _ = self.send_raw().call_local_esdt_built_in_function(

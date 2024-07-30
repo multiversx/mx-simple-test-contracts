@@ -71,6 +71,10 @@
                     "type": "BigUint"
                 },
                 {
+                    "name": "token_type",
+                    "type": "EsdtTokenType"
+                },
+                {
                     "name": "creator",
                     "type": "bytes"
                 }
@@ -80,5 +84,43 @@
     ],
     "esdtAttributes": [],
     "hasCallback": false,
-    "types": {}
+    "types": {
+        "EsdtTokenType": {
+            "type": "enum",
+            "variants": [
+                {
+                    "name": "Fungible",
+                    "discriminant": 0
+                },
+                {
+                    "name": "NonFungible",
+                    "discriminant": 1
+                },
+                {
+                    "name": "NonFungibleV2",
+                    "discriminant": 2
+                },
+                {
+                    "name": "SemiFungible",
+                    "discriminant": 3
+                },
+                {
+                    "name": "MetaFungible",
+                    "discriminant": 4
+                },
+                {
+                    "name": "DynamicNFT",
+                    "discriminant": 5
+                },
+                {
+                    "name": "DynamicSFT",
+                    "discriminant": 6
+                },
+                {
+                    "name": "DynamicMeta",
+                    "discriminant": 7
+                }
+            ]
+        }
+    }
 }

@@ -5,6 +5,7 @@
   "bigIntSetInt64",
   "checkNoPayment",
   "cleanReturnData",
+  "getArgumentLength",
   "getGasLeft",
   "getNumArguments",
   "mBufferAppend",
@@ -20,6 +21,7 @@
   "managedGetMultiESDTCallValue",
   "managedMultiTransferESDTNFTExecute",
   "managedSCAddress",
+  "managedSignalError",
   "signalError",
   "smallIntGetUnsignedArgument"
 ]
